@@ -18,7 +18,6 @@ CREATE TABLE dealership
 CREATE TABLE Vehicles
 (
 	Vin_number INT NOT NULL,
-    dealership_id INT NOT NULL,
     year INT NOT NULL,
     make VARCHAR(30) NOT NULL,
     model VARCHAR(30) NOT NULL,
@@ -26,7 +25,7 @@ CREATE TABLE Vehicles
     Color VARCHAR(30) NOT NULL,
     Odometer INT NOT NULL,
     Price DECIMAL NOT NULL,
-    Sold VARCHAR(10),
+    Sold BOOLEAN,
     PRIMARY KEY(Vin_number)
 );
 
@@ -72,7 +71,6 @@ VALUES
 INSERT INTO Vehicles
 (
 	Vin_number,
-    dealership_id,
     year,
     make,
     model,
@@ -83,10 +81,10 @@ INSERT INTO Vehicles
     Sold
 )
 VALUES
-	(4120, 1 , 2005 , 'Honda' , 'Accord' , 'Sedan' , 'Red' , 25000 , 10500 , 'false')
-    , (4121, 1, 2018, 'Toyota', 'Camry', 'Sedan', 'Blue', 30000, 18000, 'false')
-	, (4122, 1, 2016, 'Ford', 'Mustang', 'Coupe', 'Black', 40000, 25000, 'false')
-    , (4123, 2, 2016, 'Ford', 'F150', 'truck', 'Black', 40000, 25000, 'true');
+	(4120, 2005 , 'Honda' , 'Accord' , 'Sedan' , 'Red' , 25000 , 10500 , false)
+    , (4121, 2018, 'Toyota', 'Camry', 'Sedan', 'Blue', 30000, 18000, false)
+	, (4122, 2016, 'Ford', 'Mustang', 'Coupe', 'Black', 40000, 25000, false)
+    , (4123, 2016, 'Ford', 'F150', 'truck', 'Black', 40000, 25000, true);
 
 INSERT INTO Inventory
 (
@@ -96,7 +94,9 @@ INSERT INTO Inventory
 VALUES
 	(1, 4120)
     , (1, 4121)
-    , (1, 4122);
+    , (1, 4122)
+    , (2, 4123)
+    ;
     
     INSERT INTO Sales_contract
     (
@@ -124,11 +124,6 @@ VALUES
  ADD CONSTRAINT fk_vehiclefk_vehicle
  FOREIGN KEY (Vin_number) REFERENCES Vehicles(Vin_number);
  
- -- populating vehicle table with the dealership using the dealership_id
-ALTER TABLE Vehicles
-ADD CONSTRAINT fk_vehicles_dealership
-FOREIGN KEY (dealership_id) REFERENCES dealership(dealership_id);
-
 -- populating sales contract to dealership and vehicle 
 ALTER TABLE sales_contract
 ADD CONSTRAINT fk_sales_dealership
