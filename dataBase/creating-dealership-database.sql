@@ -42,6 +42,9 @@ CREATE TABLE Sales_contract
     Customer_name VARCHAR(30) NOT NULL,
     Customer_email VARCHAR(40) NOT NULL,
     sale_date DATE,
+    isFinanced BOOLEAN,
+    total_price DOUBLE,
+    monthley_Payment DOUBLE,
     Vin_number INT NOT NULL,
     dealership_id INT NOT NULL,
     PRIMARY KEY(sales_id)
@@ -52,7 +55,9 @@ CREATE TABLE lease_contract
 	lease_id INT NOT NULL AUTO_INCREMENT,
     Customer_name VARCHAR(30) NOT NULL,
     Customer_email VARCHAR(30) NOT NULL,
-    lease_date VARCHAR(30),
+    lease_date DATE,
+    total_price DOUBLE,
+    monthley_Payment DOUBLE,
     Vin_number INT NOT NULL,
     dealership_id INT NOT NULL,
     PRIMARY KEY(lease_id)
@@ -103,6 +108,9 @@ VALUES
 		 Customer_name
 		, Customer_email
         , sale_date
+        , isFinanced
+        , total_price
+        , monthley_Payment
 		, Vin_number
 		, dealership_id
     )
@@ -111,6 +119,9 @@ VALUES
 		'Fahd Saleh'
         , 'fahd@email.com'
         , '2024-06-07'
+        , false
+        , 25000
+        , 0
         , 4123
         , 2
     );
