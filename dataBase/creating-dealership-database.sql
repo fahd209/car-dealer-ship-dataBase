@@ -41,10 +41,10 @@ CREATE TABLE Sales_contract
 	sales_id INT NOT NULL AUTO_INCREMENT,
     Customer_name VARCHAR(30) NOT NULL,
     Customer_email VARCHAR(40) NOT NULL,
-    sale_date DATE,
+    sale_date VARCHAR(30),
     isFinanced BOOLEAN,
     total_price DOUBLE,
-    monthley_Payment DOUBLE,
+    monthly_Payment DOUBLE,
     Vin_number INT NOT NULL,
     dealership_id INT NOT NULL,
     PRIMARY KEY(sales_id)
@@ -55,9 +55,9 @@ CREATE TABLE lease_contract
 	lease_id INT NOT NULL AUTO_INCREMENT,
     Customer_name VARCHAR(30) NOT NULL,
     Customer_email VARCHAR(30) NOT NULL,
-    lease_date DATE,
+    lease_date VARCHAR(30),
     total_price DOUBLE,
-    monthley_Payment DOUBLE,
+    monthly_Payment DOUBLE,
     Vin_number INT NOT NULL,
     dealership_id INT NOT NULL,
     PRIMARY KEY(lease_id)
@@ -70,8 +70,7 @@ INSERT INTO dealership
     Phone
 )
 VALUES
-	('My dealership', '223 w hammer ln', '2096584521')
-    , ('Best Deals Auto', '123 Main St', '5551234567');
+	('My dealership', '223 w hammer ln', '2096584521');
 
 INSERT INTO Vehicles
 (
@@ -89,7 +88,17 @@ VALUES
 	(4120, 2005 , 'Honda' , 'Accord' , 'Sedan' , 'Red' , 25000 , 10500 , false)
     , (4121, 2018, 'Toyota', 'Camry', 'Sedan', 'Blue', 30000, 18000, false)
 	, (4122, 2016, 'Ford', 'Mustang', 'Coupe', 'Black', 40000, 25000, false)
-    , (4123, 2016, 'Ford', 'F150', 'truck', 'Black', 40000, 25000, true);
+    , (4123, 2016, 'Ford', 'F150', 'truck', 'Black', 40000, 25000, true)
+    , (4124, 2019, 'Chevrolet', 'Cruze', 'Sedan', 'Silver', 20000, 15000, false)
+	, (4125, 2017, 'Honda', 'Civic', 'Sedan', 'White', 35000, 14000, false)
+	, (4126, 2020, 'Toyota', 'Rav4', 'SUV', 'Gray', 28000, 22000, false)
+	, (4127, 2015, 'Nissan', 'Altima', 'Sedan', 'Red', 32000, 12000, false)
+	, (4128, 2018, 'Hyundai', 'Sonata', 'Sedan', 'Blue', 27000, 16000, false)
+	, (4129, 2019, 'Kia', 'Sorento', 'SUV', 'Black', 25000, 23000, false)
+	, (4130, 2017, 'Subaru', 'Outback', 'SUV', 'Green', 30000, 19000, false)
+	, (4131, 2018, 'Mazda', 'CX-5', 'SUV', 'Red', 26000, 20000, false)
+	, (4132, 2016, 'Volkswagen', 'Jetta', 'Sedan', 'White', 33000, 15000, false)
+	, (4133, 2021, 'BMW', 'X5', 'SUV', 'Black', 18000, 40000, false);
 
 INSERT INTO Inventory
 (
@@ -100,8 +109,17 @@ VALUES
 	(1, 4120)
     , (1, 4121)
     , (1, 4122)
-    , (2, 4123)
-    ;
+    , (1, 4123)
+    , (1, 4124)
+    , (1, 4125)
+    , (1, 4126)
+    , (1, 4127)
+    , (1, 4128)
+    , (1, 4129)
+    , (1, 4130)
+    , (1, 4131)
+    , (1, 4132)
+    , (1, 4133);
     
     INSERT INTO Sales_contract
     (
@@ -123,7 +141,7 @@ VALUES
         , 25000
         , 0
         , 4123
-        , 2
+        , 1
     );
     
  -- populating inventory table to dealership and vehicles table
@@ -133,7 +151,8 @@ VALUES
  
   ALTER TABLE Inventory -- child table
  ADD CONSTRAINT fk_vehiclefk_vehicle
- FOREIGN KEY (Vin_number) REFERENCES Vehicles(Vin_number);
+ FOREIGN KEY (Vin_number) REFERENCES Vehicles(Vin_number)
+ ON DELETE CASCADE;
  
 -- populating sales contract to dealership and vehicle 
 ALTER TABLE sales_contract
